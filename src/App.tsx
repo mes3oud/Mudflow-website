@@ -180,7 +180,7 @@ export default function App() {
             <a href="#simulator" className="hover:text-blue-600 transition-colors">Interactive Simulator</a>
             <a href="#features" className="hover:text-blue-600 transition-colors">App Modules</a>
             <a href="#adjuster" className="hover:text-blue-600 transition-colors">Density Adjuster</a>
-            <a href="#feedback" className="hover:text-blue-600 transition-colors">Feedback Console</a>
+            <a href="#feedback" className="hover:text-blue-600 transition-colors">Send Feedback</a>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -190,7 +190,7 @@ export default function App() {
               rel="noopener noreferrer"
               className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs px-4 py-2 rounded-xl font-bold transition-all flex items-center gap-1.5 shadow-sm"
             >
-              <span>All apps by Madanyes</span>
+              <span>All apps by madanyes</span>
               <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
             </a>
           </div>
@@ -222,7 +222,7 @@ export default function App() {
               </h1>
 
               <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-sans font-light">
-                Perform professional hydrostatic, volumetric, and hydraulic calculations with precision. Designed by <b>Madanyes</b> for petroleum engineers, mud loggers, and rig crews operating worldwide.
+                Perform professional hydrostatic, volumetric, and hydraulic calculations with precision. Designed by <b>madanyes</b> for petroleum engineers, mud loggers, and rig crews operating worldwide.
               </p>
 
               {/* Icon Showcase Card */}
@@ -237,7 +237,7 @@ export default function App() {
               {/* Call to Actions */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
                 <a 
-                  href="https://play.google.com/store/apps/details?id=com.aistudio.mudflow.rkvyxs"
+                  href={PLAY_STORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl px-8 py-4 text-sm transition-all shadow-md shadow-blue-600/10 flex items-center justify-center gap-2.5 cursor-pointer hover:scale-[1.02]"
@@ -770,12 +770,12 @@ export default function App() {
 
               <div className="pt-4">
                 <a 
-                  href="https://play.google.com/store/apps/details?id=com.aistudio.mudflow.rkvyxs"
+                  href={PLAY_STORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors"
                 >
-                  <span>Learn more on Madanyes's Developer Page</span>
+                  <span>Learn more on madanyes's Developer Page</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
@@ -797,13 +797,15 @@ export default function App() {
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-2">
             <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-              Rig Feedback Queue
+              Get In Touch
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Developer Feedback Console
+              Send Feedback
             </h2>
             <p className="text-sm text-slate-500 font-medium">
-              We want real rig engineers and mud loggers to share opinions. Submit a ticket below, and watch it route directly into Madanyes's developer inbox!
+              Bug reports and calculator requests from working mud engineers are the most
+              useful thing I get. The form below opens your own email app — nothing is
+              stored on this website.
             </p>
           </div>
 
@@ -853,11 +855,11 @@ export default function App() {
             <User className="w-8 h-8" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-slate-900">About the Developer — Madanyes</h3>
-            <p className="text-xs text-blue-600 font-mono font-bold">Madanyes</p>
+            <h3 className="text-lg font-bold text-slate-900">About the Developer — madanyes</h3>
+            <p className="text-xs text-blue-600 font-mono font-bold">madanyes</p>
           </div>
           <p className="text-xs text-slate-600 max-w-xl mx-auto leading-relaxed">
-            Madanyes is an engineering utility developer focused on high-accuracy fluid dynamics, wellbore geometry diagnostics, and mobile utilities for rig-floor applications. MudFlow was developed using Google AI Studio to streamline mathematical workflows and raise rig floor productivity.
+            madanyes is an engineering utility developer focused on high-accuracy fluid dynamics, wellbore geometry diagnostics, and mobile utilities for rig-floor applications. MudFlow was developed using Google AI Studio to streamline mathematical workflows and raise rig floor productivity.
           </p>
           <div className="flex justify-center gap-4 text-xs font-semibold">
             <a 
@@ -895,7 +897,7 @@ export default function App() {
           </div>
 
           <p className="text-[10px] text-slate-400 font-mono text-center md:text-right max-w-sm">
-            © 2026 Madanyes. All rights reserved. Oilfield safety calculations are for educational and advisory reference only. Always follow your operating company's policies.
+            © 2026 madanyes. All rights reserved. MudFlow is an independent product and is not affiliated with, endorsed by, or sponsored by any oilfield operator or service company. All calculations on this website and in the app are for reference and training only. Verify every result against your own well plan, company procedures and applicable standards before acting on it.
           </p>
         </div>
       </footer>

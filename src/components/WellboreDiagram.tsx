@@ -135,11 +135,11 @@ export default function WellboreDiagram({ inputs, outputs, isMetric }: WellboreD
           <g fontSize="6" fontFamily="sans-serif" fill="#475569">
             <text x="3" y="110" fill="#059669" fontWeight="bold">ANNULUS</text>
             <text x="3" y="118">Annulus Volume:</text>
-            <text x="3" y="126" fill="#0f172a" fontFamily="monospace" fontWeight="bold">{annularVolume.toFixed(1)} bbl</text>
+            <text x="3" y="126" fill="#0f172a" fontFamily="monospace" fontWeight="bold">{isMetric ? (annularVolume * 0.158987).toFixed(1) : annularVolume.toFixed(1)} {isMetric ? "m³" : "bbl"}</text>
 
             <text x="3" y="220" fill="#2563eb" fontWeight="bold">DRILLPIPE</text>
             <text x="3" y="228">Drillstring Volume:</text>
-            <text x="3" y="236" fill="#0f172a" fontFamily="monospace" fontWeight="bold">{drillPipeVolume.toFixed(1)} bbl</text>
+            <text x="3" y="236" fill="#0f172a" fontFamily="monospace" fontWeight="bold">{isMetric ? (drillPipeVolume * 0.158987).toFixed(1) : drillPipeVolume.toFixed(1)} {isMetric ? "m³" : "bbl"}</text>
           </g>
         </svg>
       </div>

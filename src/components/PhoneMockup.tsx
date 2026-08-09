@@ -332,7 +332,7 @@ export default function PhoneMockup() {
               </p>
               <div className="text-[10px] font-semibold text-slate-500 flex justify-between pt-1 border-t border-slate-200/50">
                 <span>Developer</span>
-                <span>By Madanyes</span>
+                <span>By madanyes</span>
               </div>
               
               {/* WhatsApp Contact Button */}
