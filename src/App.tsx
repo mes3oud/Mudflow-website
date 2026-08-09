@@ -33,7 +33,7 @@ import {
   YP_TO_PA,
 } from "./utils/mudMath";
 import { CalculatorInputs } from "./types";
-import { APP_VERSION, PLAY_STORE_URL, DEVELOPER_PAGE_URL, CONTACT_EMAIL } from "./config";
+import { APP_VERSION, PLAY_STORE_URL, DEVELOPER_PAGE_URL, CONTACT_EMAIL, PRIVACY_URL } from "./config";
 
 export default function App() {
   const [isMetric, setIsMetric] = useState(false);
@@ -895,6 +895,13 @@ export default function App() {
               <p className="text-[9px] text-slate-400 font-mono">Built using Google AI Studio</p>
             </div>
           </div>
+
+          <a
+            href={PRIVACY_URL}
+            className="text-[11px] font-bold text-slate-300 hover:text-white underline underline-offset-4 transition-colors shrink-0"
+          >
+            Privacy Policy
+          </a>
 
           <p className="text-[10px] text-slate-400 font-mono text-center md:text-right max-w-sm">
             © 2026 madanyes. All rights reserved. MudFlow is an independent product and is not affiliated with, endorsed by, or sponsored by any oilfield operator or service company. All calculations on this website and in the app are for reference and training only. Verify every result against your own well plan, company procedures and applicable standards before acting on it.

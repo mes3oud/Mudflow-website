@@ -12,3 +12,5 @@ export const DEVELOPER_PAGE_URL =
 export const CONTACT_EMAIL = "madanyes@mudflowapp.online";
 
 export const SITE_URL = "https://mudflow.ai.studio";
+
+export const PRIVACY_URL = "/privacy.html";
