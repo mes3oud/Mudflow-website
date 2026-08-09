@@ -16,7 +16,7 @@ export default function WellboreDiagram({ inputs, outputs, isMetric }: WellboreD
   const depthUnit = isMetric ? "m" : "ft";
   const pressVal = isMetric ? (hydrostaticPressure * 0.0689476).toFixed(1) : hydrostaticPressure.toFixed(0);
   const pressUnit = isMetric ? "bar" : "psi";
-  const mwVal = isMetric ? (mudWeight * 0.1198).toFixed(2) : mudWeight.toFixed(1);
+  const mwVal = isMetric ? (mudWeight * 0.119826).toFixed(2) : mudWeight.toFixed(1);
   const mwUnit = isMetric ? "s.g." : "ppg";
 
   return (
@@ -149,14 +149,14 @@ export default function WellboreDiagram({ inputs, outputs, isMetric }: WellboreD
         <div>
           <span className="text-slate-500 block text-[9px] uppercase tracking-wider font-semibold">Hydrostatic Grad.</span>
           <span className="font-mono text-blue-600 font-bold block mt-0.5">
-            {isMetric ? (mudWeight * 0.1198 * 0.0981).toFixed(4) : (mudWeight * 0.052).toFixed(3)}{" "}
+            {isMetric ? (mudWeight * 0.119826 * 0.0981).toFixed(4) : (mudWeight * 0.052).toFixed(3)}{" "}
             <span className="text-[9px] text-slate-400">{isMetric ? "bar/m" : "psi/ft"}</span>
           </span>
         </div>
         <div>
           <span className="text-slate-500 block text-[9px] uppercase tracking-wider font-semibold">ECD</span>
           <span className="font-mono text-emerald-600 font-bold block mt-0.5">
-            {isMetric ? (outputs.ecd * 0.1198).toFixed(2) : outputs.ecd.toFixed(2)}{" "}
+            {isMetric ? (outputs.ecd * 0.119826).toFixed(2) : outputs.ecd.toFixed(2)}{" "}
             <span className="text-[9px] text-slate-400 font-medium">{isMetric ? "s.g." : "ppg"}</span>
           </span>
         </div>

@@ -31,6 +31,13 @@ import {
   DEFAULT_PIPE_ID,
   getDrillPipeById,
   YP_TO_PA,
+  IN_TO_MM,
+  SG_TO_BAR_PER_M,
+  PPG_TO_SG,
+  BBL_TO_M3,
+  PSI_TO_BAR,
+  FT_TO_M,
+  GPM_TO_LPM,
 } from "./utils/mudMath";
 import { CalculatorInputs } from "./types";
 import { APP_VERSION, PLAY_STORE_URL, DEVELOPER_PAGE_URL, CONTACT_EMAIL, PRIVACY_URL } from "./config";
@@ -58,31 +65,31 @@ export default function App() {
 
   // Local state for UI inputs (which dynamically change depending on unit mode)
   // When switching unit mode, we recalculate UI values from the imperial source values
-  const uiMudWeight = isMetric ? parseFloat((inputs.mudWeight * 0.1198).toFixed(2)) : inputs.mudWeight;
-  const uiMD = isMetric ? Math.round(inputs.measuredDepth * 0.3048) : inputs.measuredDepth;
-  const uiTVD = isMetric ? Math.round(inputs.trueVerticalDepth * 0.3048) : inputs.trueVerticalDepth;
-  const uiCasingID = isMetric ? parseFloat((inputs.casingID * 25.4).toFixed(1)) : inputs.casingID;
-  const uiPipeOD = isMetric ? parseFloat((inputs.drillPipeOD * 25.4).toFixed(1)) : inputs.drillPipeOD;
-  const uiFlowRate = isMetric ? Math.round(inputs.pumpFlowRate * 3.7854) : inputs.pumpFlowRate;
+  const uiMudWeight = isMetric ? parseFloat((inputs.mudWeight * PPG_TO_SG).toFixed(2)) : inputs.mudWeight;
+  const uiMD = isMetric ? Math.round(inputs.measuredDepth * FT_TO_M) : inputs.measuredDepth;
+  const uiTVD = isMetric ? Math.round(inputs.trueVerticalDepth * FT_TO_M) : inputs.trueVerticalDepth;
+  const uiCasingID = isMetric ? parseFloat((inputs.casingID * IN_TO_MM).toFixed(1)) : inputs.casingID;
+  const uiPipeOD = isMetric ? parseFloat((inputs.drillPipeOD * IN_TO_MM).toFixed(1)) : inputs.drillPipeOD;
+  const uiFlowRate = isMetric ? Math.round(inputs.pumpFlowRate * GPM_TO_LPM) : inputs.pumpFlowRate;
 
   // Custom setter wrappers to sync back to imperial
   const handleMudWeightChange = (val: number) => {
-    const imperialMW = isMetric ? val / 0.1198 : val;
+    const imperialMW = isMetric ? val / PPG_TO_SG : val;
     setInputs(prev => ({ ...prev, mudWeight: parseFloat(imperialMW.toFixed(2)) }));
   };
 
   const handleMDChange = (val: number) => {
-    const imperialMD = isMetric ? val / 0.3048 : val;
+    const imperialMD = isMetric ? val / FT_TO_M : val;
     setInputs(prev => ({ ...prev, measuredDepth: Math.round(imperialMD) }));
   };
 
   const handleTVDChange = (val: number) => {
-    const imperialTVD = isMetric ? val / 0.3048 : val;
+    const imperialTVD = isMetric ? val / FT_TO_M : val;
     setInputs(prev => ({ ...prev, trueVerticalDepth: Math.round(imperialTVD) }));
   };
 
   const handleCasingIDChange = (val: number) => {
-    const imperialID = isMetric ? val / 25.4 : val;
+    const imperialID = isMetric ? val / IN_TO_MM : val;
     setInputs(prev => ({ ...prev, casingID: parseFloat(imperialID.toFixed(3)) }));
   };
 
@@ -93,6 +100,8 @@ export default function App() {
       drillPipeSizeId: pipe.id,
       drillPipeOD: pipe.od,
       drillPipeID: pipe.innerDiameter,
+      // Keep at least a half-inch annular gap so the geometry stays physical.
+      casingID: Math.max(prev.casingID, pipe.od + 0.5),
     }));
   };
 
@@ -105,7 +114,7 @@ export default function App() {
   };
 
   const handleFlowRateChange = (val: number) => {
-    const imperialFlow = isMetric ? val / 3.7854 : val;
+    const imperialFlow = isMetric ? val / GPM_TO_LPM : val;
     setInputs(prev => ({ ...prev, pumpFlowRate: Math.round(imperialFlow) }));
   };
 
@@ -423,7 +432,11 @@ export default function App() {
                       </div>
                       <input
                         type="range"
-                        min={isMetric ? "150" : "6.0"}
+                        min={
+                          isMetric
+                            ? String(Math.ceil((inputs.drillPipeOD + 0.5) * IN_TO_MM))
+                            : (inputs.drillPipeOD + 0.5).toFixed(1)
+                        }
                         max={isMetric ? "400" : "15.0"}
                         step={isMetric ? "1" : "0.1"}
                         value={uiCasingID}
@@ -552,12 +565,12 @@ export default function App() {
                   Calculated Hydrostatic
                 </span>
                 <div className="text-2xl font-black font-mono text-blue-600 mt-1">
-                  {isMetric ? (outputs.hydrostaticPressure * 0.0689).toFixed(1) : outputs.hydrostaticPressure.toLocaleString()}{" "}
+                  {isMetric ? (outputs.hydrostaticPressure * PSI_TO_BAR).toFixed(1) : outputs.hydrostaticPressure.toLocaleString()}{" "}
                   <span className="text-xs text-slate-400 font-bold">{isMetric ? "bar" : "psi"}</span>
                 </div>
                 <div className="text-[10px] text-slate-600 mt-1 flex items-center gap-1 leading-normal">
                   <Info className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                  <span>Gradient: <b>{isMetric ? (inputs.mudWeight * 0.1198 * 0.0981).toFixed(4) : (inputs.mudWeight * 0.052).toFixed(3)}</b> {isMetric ? "bar/m" : "psi/ft"}</span>
+                  <span>Gradient: <b>{isMetric ? (inputs.mudWeight * PPG_TO_SG * SG_TO_BAR_PER_M).toFixed(4) : (inputs.mudWeight * 0.052).toFixed(3)}</b> {isMetric ? "bar/m" : "psi/ft"}</span>
                 </div>
               </div>
 
@@ -567,16 +580,16 @@ export default function App() {
                   Total Fluid Volume
                 </span>
                 <div className="text-2xl font-black font-mono text-blue-600 mt-1">
-                  {isMetric ? (outputs.wellVolume * 0.1589).toFixed(1) : outputs.wellVolume.toLocaleString()}{" "}
+                  {isMetric ? (outputs.wellVolume * BBL_TO_M3).toFixed(1) : outputs.wellVolume.toLocaleString()}{" "}
                   <span className="text-xs text-slate-400 font-bold">{isMetric ? "m³" : "bbl"}</span>
                 </div>
                 <div className="text-[10px] text-slate-600 mt-1 flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                  <span>Annulus: <b>{isMetric ? (outputs.annularVolume * 0.1589).toFixed(1) : outputs.annularVolume}</b> {isMetric ? "m³" : "bbl"}</span>
+                  <span>Annulus: <b>{isMetric ? (outputs.annularVolume * BBL_TO_M3).toFixed(1) : outputs.annularVolume}</b> {isMetric ? "m³" : "bbl"}</span>
                 </div>
                 <div className="text-[10px] text-slate-600 flex items-center gap-1.5 mt-0.5">
                   <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                  <span>Drillstring: <b>{isMetric ? (outputs.drillPipeVolume * 0.1589).toFixed(1) : outputs.drillPipeVolume}</b> {isMetric ? "m³" : "bbl"}</span>
+                  <span>Drillstring: <b>{isMetric ? (outputs.drillPipeVolume * BBL_TO_M3).toFixed(1) : outputs.drillPipeVolume}</b> {isMetric ? "m³" : "bbl"}</span>
                 </div>
               </div>
 
@@ -600,7 +613,7 @@ export default function App() {
                   Equivalent Circulating Density
                 </span>
                 <div className="text-2xl font-black font-mono text-emerald-600 mt-1">
-                  {isMetric ? (outputs.ecd * 0.119826).toFixed(2) : outputs.ecd.toFixed(2)}{" "}
+                  {isMetric ? (outputs.ecd * PPG_TO_SG).toFixed(2) : outputs.ecd.toFixed(2)}{" "}
                   <span className="text-xs text-slate-400 font-bold">{isMetric ? "s.g." : "ppg"}</span>
                 </div>
 
@@ -612,7 +625,7 @@ export default function App() {
                         Annular friction:{" "}
                         <b>
                           {isMetric
-                            ? (outputs.annularPressureLoss * 0.0689476).toFixed(1)
+                            ? (outputs.annularPressureLoss * PSI_TO_BAR).toFixed(1)
                             : outputs.annularPressureLoss.toLocaleString()}
                         </b>{" "}
                         {isMetric ? "bar" : "psi"}
@@ -624,7 +637,7 @@ export default function App() {
                         BHP:{" "}
                         <b>
                           {isMetric
-                            ? (outputs.bottomHolePressure * 0.0689476).toFixed(1)
+                            ? (outputs.bottomHolePressure * PSI_TO_BAR).toFixed(1)
                             : outputs.bottomHolePressure.toLocaleString()}
                         </b>{" "}
                         {isMetric ? "bar" : "psi"}
@@ -896,16 +909,26 @@ export default function App() {
             </div>
           </div>
 
-          <a
-            href={PRIVACY_URL}
-            className="text-[11px] font-bold text-slate-300 hover:text-white underline underline-offset-4 transition-colors shrink-0"
-          >
-            Privacy Policy
-          </a>
+          <div className="flex flex-col items-center md:items-end gap-3 max-w-sm">
+            <div className="flex items-center gap-4">
+              <a
+                href={PRIVACY_URL}
+                className="text-[11px] font-bold text-slate-300 hover:text-white underline underline-offset-4 transition-colors"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="text-[11px] font-bold text-slate-300 hover:text-white underline underline-offset-4 transition-colors"
+              >
+                Contact
+              </a>
+            </div>
 
-          <p className="text-[10px] text-slate-400 font-mono text-center md:text-right max-w-sm">
-            © 2026 madanyes. All rights reserved. MudFlow is an independent product and is not affiliated with, endorsed by, or sponsored by any oilfield operator or service company. All calculations on this website and in the app are for reference and training only. Verify every result against your own well plan, company procedures and applicable standards before acting on it.
-          </p>
+            <p className="text-[10px] text-slate-400 font-mono text-center md:text-right">
+              © 2026 Madanyes. All rights reserved. MudFlow is an independent product and is not affiliated with, endorsed by, or sponsored by any oilfield operator or service company. All calculations on this website and in the app are for reference and training only. Verify every result against your own well plan, company procedures and applicable standards before acting on it.
+            </p>
+          </div>
         </div>
       </footer>
 

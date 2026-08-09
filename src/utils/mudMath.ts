@@ -10,6 +10,8 @@ export const FT_TO_M = 0.3048;
 export const PSI_TO_BAR = 0.0689476;
 export const GPM_TO_LPM = 3.78541;
 export const YP_TO_PA = 0.478803;
+export const IN_TO_MM = 25.4;
+export const SG_TO_BAR_PER_M = 0.0981;
 
 // ---------------------------------------------------------------------------
 // Standard API drill pipe sizes.
