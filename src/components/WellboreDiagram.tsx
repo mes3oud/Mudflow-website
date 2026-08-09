@@ -134,11 +134,11 @@ export default function WellboreDiagram({ inputs, outputs, isMetric }: WellboreD
           {/* Leftside labels (Annulus vs Pipe labels) */}
           <g fontSize="6" fontFamily="sans-serif" fill="#475569">
             <text x="3" y="110" fill="#059669" fontWeight="bold">ANNULUS</text>
-            <text x="3" y="118">Mud Volume:</text>
+            <text x="3" y="118">Annulus Volume:</text>
             <text x="3" y="126" fill="#0f172a" fontFamily="monospace" fontWeight="bold">{annularVolume.toFixed(1)} bbl</text>
 
             <text x="3" y="220" fill="#2563eb" fontWeight="bold">DRILLPIPE</text>
-            <text x="3" y="228">Mud Volume:</text>
+            <text x="3" y="228">Drillstring Volume:</text>
             <text x="3" y="236" fill="#0f172a" fontFamily="monospace" fontWeight="bold">{drillPipeVolume.toFixed(1)} bbl</text>
           </g>
         </svg>
@@ -149,13 +149,15 @@ export default function WellboreDiagram({ inputs, outputs, isMetric }: WellboreD
         <div>
           <span className="text-slate-500 block text-[9px] uppercase tracking-wider font-semibold">Hydrostatic Grad.</span>
           <span className="font-mono text-blue-600 font-bold block mt-0.5">
-            {(0.052 * mudWeight).toFixed(3)} <span className="text-[9px] text-slate-400">psi/ft</span>
+            {isMetric ? (mudWeight * 0.1198 * 0.0981).toFixed(4) : (mudWeight * 0.052).toFixed(3)}{" "}
+            <span className="text-[9px] text-slate-400">{isMetric ? "bar/m" : "psi/ft"}</span>
           </span>
         </div>
         <div>
-          <span className="text-slate-500 block text-[9px] uppercase tracking-wider font-semibold">ECD Pressure</span>
+          <span className="text-slate-500 block text-[9px] uppercase tracking-wider font-semibold">ECD</span>
           <span className="font-mono text-emerald-600 font-bold block mt-0.5">
-            {pressVal} <span className="text-[9px] text-slate-400 font-medium">{pressUnit}</span>
+            {isMetric ? (outputs.ecd * 0.1198).toFixed(2) : outputs.ecd.toFixed(2)}{" "}
+            <span className="text-[9px] text-slate-400 font-medium">{isMetric ? "s.g." : "ppg"}</span>
           </span>
         </div>
       </div>

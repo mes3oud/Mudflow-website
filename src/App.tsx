@@ -25,8 +25,15 @@ import AppIcon from "./components/AppIcon";
 import WellboreDiagram from "./components/WellboreDiagram";
 import MudWeightCalculator from "./components/MudWeightCalculator";
 import FeedbackManager from "./components/FeedbackManager";
-import { calculateMudFlow } from "./utils/mudMath";
+import {
+  calculateMudFlow,
+  DRILL_PIPE_SIZES,
+  DEFAULT_PIPE_ID,
+  getDrillPipeById,
+  YP_TO_PA,
+} from "./utils/mudMath";
 import { CalculatorInputs } from "./types";
+import { APP_VERSION, PLAY_STORE_URL, DEVELOPER_PAGE_URL, CONTACT_EMAIL } from "./config";
 
 export default function App() {
   const [isMetric, setIsMetric] = useState(false);
@@ -38,8 +45,12 @@ export default function App() {
     trueVerticalDepth: 10500, // ft
     casingID: 8.681, // inches
     drillPipeOD: 5.0, // inches
+    drillPipeID: 4.276, // inches — published API value
+    drillPipeSizeId: DEFAULT_PIPE_ID,
     pumpFlowRate: 450, // gpm
     pumpDisplacement: 0.097, // bbl/stroke
+    plasticViscosity: 20, // cP
+    yieldPoint: 15, // lb/100 ft²
   });
 
   // Derived calculations
@@ -75,9 +86,22 @@ export default function App() {
     setInputs(prev => ({ ...prev, casingID: parseFloat(imperialID.toFixed(3)) }));
   };
 
-  const handlePipeODChange = (val: number) => {
-    const imperialOD = isMetric ? val / 25.4 : val;
-    setInputs(prev => ({ ...prev, drillPipeOD: parseFloat(imperialOD.toFixed(3)) }));
+  const handlePipeSizeChange = (sizeId: string) => {
+    const pipe = getDrillPipeById(sizeId);
+    setInputs(prev => ({
+      ...prev,
+      drillPipeSizeId: pipe.id,
+      drillPipeOD: pipe.od,
+      drillPipeID: pipe.innerDiameter,
+    }));
+  };
+
+  const handlePvChange = (val: number) => {
+    setInputs(prev => ({ ...prev, plasticViscosity: val }));
+  };
+
+  const handleYpChange = (val: number) => {
+    setInputs(prev => ({ ...prev, yieldPoint: val }));
   };
 
   const handleFlowRateChange = (val: number) => {
@@ -92,8 +116,12 @@ export default function App() {
       trueVerticalDepth: 10500,
       casingID: 8.681,
       drillPipeOD: 5.0,
+      drillPipeID: 4.276,
+      drillPipeSizeId: DEFAULT_PIPE_ID,
       pumpFlowRate: 450,
       pumpDisplacement: 0.097,
+      plasticViscosity: 20,
+      yieldPoint: 15,
     });
   };
 
@@ -119,7 +147,11 @@ export default function App() {
     },
     {
       q: "What is Equivalent Circulating Density (ECD)?",
-      a: "Equivalent Circulating Density is the total dynamic pressure exerted on the bottom of the wellbore while drilling fluid is circulating. It combines the static hydrostatic pressure with the friction pressure drops in the wellbore annulus. Monitoring ECD is critical to avoid exceeding the formation fracture gradient and causing wellbore loss."
+      a: "Equivalent Circulating Density is the effective mud weight the formation feels while fluid is circulating. It is the static mud weight plus the annular friction pressure expressed as a density. Monitoring ECD matters because exceeding the fracture gradient causes losses. The simulator on this page shows ECD directly, calculated from a Bingham Plastic annular friction model using your plastic viscosity and yield point."
+    },
+    {
+      q: "How accurate is the simulator on this page?",
+      a: "The simulator is a teaching and demonstration tool. It models a single uniform annular section with one fluid and no cuttings loading, no tool joints, no drill collars, and no pipe rotation or eccentricity. Real wells have several hole sections, so a full hydraulics run will give different numbers. Never use this page for operational decisions — use the app for field work, and always cross-check against your own well plan and company procedures."
     }
   ];
 
@@ -138,7 +170,7 @@ export default function App() {
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-extrabold text-lg tracking-tight text-slate-900 font-sans">MudFlow</span>
-                <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-mono border border-blue-100 font-bold uppercase tracking-wider">v1.4.10</span>
+                <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-mono border border-blue-100 font-bold uppercase tracking-wider">v{APP_VERSION}</span>
               </div>
               <p className="text-[10px] text-slate-400 tracking-wide font-mono uppercase font-semibold">Drilling Fluid Dynamics</p>
             </div>
@@ -153,12 +185,12 @@ export default function App() {
 
           <div className="flex items-center gap-3">
             <a 
-              href="https://play.google.com/store/apps/details?id=com.aistudio.mudflow.rkvyxs" 
+              href={DEVELOPER_PAGE_URL} 
               target="_blank" 
               rel="noopener noreferrer"
               className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs px-4 py-2 rounded-xl font-bold transition-all flex items-center gap-1.5 shadow-sm"
             >
-              <span>Developer Page</span>
+              <span>All apps by Madanyes</span>
               <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
             </a>
           </div>
@@ -177,9 +209,9 @@ export default function App() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                 </span>
-                <span className="font-semibold">Active Beta Release v1.1.2</span>
+                <span className="font-semibold">Live on Google Play — v{APP_VERSION}</span>
                 <span className="text-slate-300">|</span>
-                <span className="text-blue-600 font-extrabold">Free Downloads</span>
+                <span className="text-blue-600 font-extrabold">Free to install</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none text-slate-900 font-sans">
@@ -198,7 +230,7 @@ export default function App() {
                 <AppIcon size={56} className="shrink-0" />
                 <div className="text-left">
                   <div className="font-extrabold text-[#014E80] text-sm leading-tight">Mudflow Official App</div>
-                  <p className="text-[10.5px] text-slate-500 mt-1 leading-snug">Rig-floor optimized, offline-first. Features 8 custom calculator modules designed for engineers.</p>
+                  <p className="text-[10.5px] text-slate-500 mt-1 leading-snug">Rig-floor optimized, offline-first. Over 50 calculators, in English and French. Free to install, with an optional Professional upgrade.</p>
                 </div>
               </div>
 
@@ -271,8 +303,18 @@ export default function App() {
               Rig Hydraulics & Volumetric Simulator
             </h2>
             <p className="text-sm text-slate-500 font-medium">
-              Change the operational parameters below. Watch the wellbore diagram and pressure gradients adjust in real-time.
+              Change the operational parameters below. The wellbore diagram and the
+              pressure readouts update as you move each control.
             </p>
+            <div className="mt-4 mx-auto max-w-2xl text-left p-3 rounded-xl bg-amber-50 border border-amber-200/80 flex items-start gap-2">
+              <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <p className="text-[11px] text-amber-900 leading-relaxed">
+                <b>Demonstration model.</b> One uniform annular section, one fluid, no
+                cuttings loading, no collars or tool joints, no pipe rotation. Friction
+                uses a Bingham Plastic model. Real wells need a full multi-section
+                hydraulics run — do not use this page for operational decisions.
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
@@ -390,23 +432,74 @@ export default function App() {
                       />
                     </div>
 
-                    {/* Drill Pipe OD */}
+                    {/* Drill Pipe size — real published OD and ID */}
                     <div>
                       <div className="flex justify-between items-center mb-1.5">
                         <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                          Drill Pipe OD
+                          Drill Pipe Size
                         </span>
                         <span className="font-mono text-xs font-bold text-blue-600">
-                          {uiPipeOD} {isMetric ? "mm" : "in"}
+                          {uiPipeOD} {isMetric ? "mm" : "in"} OD
+                        </span>
+                      </div>
+                      <select
+                        value={inputs.drillPipeSizeId}
+                        onChange={(e) => handlePipeSizeChange(e.target.value)}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-mono"
+                      >
+                        {DRILL_PIPE_SIZES.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.label}
+                          </option>
+                        ))}
+                      </select>
+                      <p className="text-[9px] text-slate-400 mt-1 font-mono">
+                        ID {inputs.drillPipeID.toFixed(3)} in — published API value
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Rheology — required for any honest friction calculation */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                    <div>
+                      <div className="flex justify-between items-center mb-1.5">
+                        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                          Plastic Viscosity (PV)
+                        </span>
+                        <span className="font-mono text-xs font-bold text-blue-600">
+                          {inputs.plasticViscosity} cP
                         </span>
                       </div>
                       <input
                         type="range"
-                        min={isMetric ? "70" : "3.0"}
-                        max={isMetric ? "200" : "8.0"}
-                        step={isMetric ? "1" : "0.1"}
-                        value={uiPipeOD}
-                        onChange={(e) => handlePipeODChange(parseFloat(e.target.value))}
+                        min="1"
+                        max="80"
+                        step="1"
+                        value={inputs.plasticViscosity}
+                        onChange={(e) => handlePvChange(parseInt(e.target.value))}
+                        className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="flex justify-between items-center mb-1.5">
+                        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                          Yield Point (YP)
+                        </span>
+                        <span className="font-mono text-xs font-bold text-blue-600">
+                          {isMetric
+                            ? (inputs.yieldPoint * YP_TO_PA).toFixed(1)
+                            : inputs.yieldPoint}{" "}
+                          {isMetric ? "Pa" : "lb/100ft²"}
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max="60"
+                        step="1"
+                        value={inputs.yieldPoint}
+                        onChange={(e) => handleYpChange(parseInt(e.target.value))}
                         className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                       />
                     </div>
@@ -501,18 +594,55 @@ export default function App() {
                 </p>
               </div>
 
-              {/* Box 4: Estimated BHP */}
+              {/* Box 4: ECD and annular friction */}
               <div className="glass-card rounded-2xl p-4.5 shadow-sm">
                 <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block font-mono">
-                  Bottom-hole Pressure (BHP)
+                  Equivalent Circulating Density
                 </span>
-                <div className="text-xl font-bold font-mono text-emerald-600 mt-1">
-                  {isMetric ? (outputs.bottomHolePressure * 0.0689).toFixed(1) : outputs.bottomHolePressure.toLocaleString()}{" "}
-                  <span className="text-xs text-slate-400 font-bold">{isMetric ? "bar" : "psi"}</span>
+                <div className="text-2xl font-black font-mono text-emerald-600 mt-1">
+                  {isMetric ? (outputs.ecd * 0.119826).toFixed(2) : outputs.ecd.toFixed(2)}{" "}
+                  <span className="text-xs text-slate-400 font-bold">{isMetric ? "s.g." : "ppg"}</span>
                 </div>
-                <div className="text-[9px] text-slate-400 font-mono mt-1">
-                  Includes annular friction loss estimate
-                </div>
+
+                {outputs.isGeometryValid ? (
+                  <>
+                    <div className="text-[10px] text-slate-600 mt-1.5 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                      <span>
+                        Annular friction:{" "}
+                        <b>
+                          {isMetric
+                            ? (outputs.annularPressureLoss * 0.0689476).toFixed(1)
+                            : outputs.annularPressureLoss.toLocaleString()}
+                        </b>{" "}
+                        {isMetric ? "bar" : "psi"}
+                      </span>
+                    </div>
+                    <div className="text-[10px] text-slate-600 flex items-center gap-1.5 mt-0.5">
+                      <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                      <span>
+                        BHP:{" "}
+                        <b>
+                          {isMetric
+                            ? (outputs.bottomHolePressure * 0.0689476).toFixed(1)
+                            : outputs.bottomHolePressure.toLocaleString()}
+                        </b>{" "}
+                        {isMetric ? "bar" : "psi"}
+                      </span>
+                    </div>
+                    <div className="text-[9px] text-slate-400 font-mono mt-1.5 pt-1.5 border-t border-slate-100">
+                      Annular velocity {outputs.annularVelocity} ft/min · critical{" "}
+                      {outputs.criticalVelocity} ft/min ·{" "}
+                      <b className={outputs.flowRegime === "Turbulent" ? "text-amber-600" : "text-blue-600"}>
+                        {outputs.flowRegime}
+                      </b>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-[10px] text-red-600 mt-1.5 leading-normal">
+                    Hole ID must be larger than pipe OD. Adjust the geometry.
+                  </div>
+                )}
               </div>
 
             </div>
@@ -626,7 +756,7 @@ export default function App() {
               <div className="space-y-4 text-xs text-slate-600">
                 <div className="flex gap-3">
                   <div className="w-5 h-5 rounded bg-blue-50 border border-blue-100 shrink-0 text-blue-600 font-bold font-mono flex items-center justify-center text-[10px]">1</div>
-                  <p><b className="text-slate-800">Mass Balance Formula:</b> Ensures precise molecular-level estimations of final bulk weights and fluid density.</p>
+                  <p><b className="text-slate-800">Mass balance:</b> Barite sacks per 100 bbl and the resulting pit volume gain, using a 4.2 SG weighting material at 100 lb per sack.</p>
                 </div>
                 <div className="flex gap-3">
                   <div className="w-5 h-5 rounded bg-blue-50 border border-blue-100 shrink-0 text-blue-600 font-bold font-mono flex items-center justify-center text-[10px]">2</div>
@@ -660,7 +790,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Beta Feedback Manager Section */}
+      {/* Feedback Manager Section */}
       <section id="feedback" className="py-24 bg-white border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -673,7 +803,7 @@ export default function App() {
               Developer Feedback Console
             </h2>
             <p className="text-sm text-slate-500 font-medium">
-              We want real rig engineers and mud loggers to share opinions. Submit a mock ticket below, and watch it route directly into Madanyes's developer inbox!
+              We want real rig engineers and mud loggers to share opinions. Submit a ticket below, and watch it route directly into Madanyes's developer inbox!
             </p>
           </div>
 
@@ -731,7 +861,7 @@ export default function App() {
           </p>
           <div className="flex justify-center gap-4 text-xs font-semibold">
             <a 
-              href="https://play.google.com/store/apps/details?id=com.aistudio.mudflow.rkvyxs" 
+              href={DEVELOPER_PAGE_URL} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-blue-600 hover:text-blue-700 flex items-center gap-1 cursor-pointer"
@@ -741,11 +871,11 @@ export default function App() {
             </a>
             <span className="text-slate-200">|</span>
             <a 
-              href="mailto:madanyes@mudflowapp.online" 
+              href={`mailto:${CONTACT_EMAIL}`} 
               className="text-blue-600 hover:text-blue-700 flex items-center gap-1 cursor-pointer"
             >
               <Mail className="w-3.5 h-3.5" />
-              <span>madanyes@mudflowapp.online</span>
+              <span>{CONTACT_EMAIL}</span>
             </a>
           </div>
         </div>
@@ -764,8 +894,8 @@ export default function App() {
             </div>
           </div>
 
-          <p className="text-[10px] text-slate-400 font-mono text-center md:text-right">
-            © 2026 Madanyes. All rights reserved. Oilfield safety calculations are for educational and advisory reference only.
+          <p className="text-[10px] text-slate-400 font-mono text-center md:text-right max-w-sm">
+            © 2026 Madanyes. All rights reserved. Oilfield safety calculations are for educational and advisory reference only. Always follow your operating company's policies.
           </p>
         </div>
       </footer>
