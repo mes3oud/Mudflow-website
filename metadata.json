@@ -1,5 +1,5 @@
 {
-  "name": "MudFlow Android App",
+  "name": "MudFlow: Mud Engineer Tools",
   "description": "Premium landing page and interactive simulator for the MudFlow drilling fluids hydraulics calculator Android app.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

@@ -323,7 +323,7 @@ export default function PhoneMockup() {
                 <AppIcon size={38} />
                 <div>
                   <h4 className="font-extrabold text-[#014E80] dark:text-sky-400 text-[11px] leading-tight">About Mudflow</h4>
-                  <span className="text-[9px] text-slate-500 font-mono">v2.1.0 (Pro)</span>
+                  <span className="text-[9px] text-slate-500 font-mono">v1.4.10 (Pro)</span>
                 </div>
               </div>
               <p className="text-slate-600 dark:text-slate-400 text-xs font-light">

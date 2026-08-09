@@ -138,7 +138,7 @@ export default function App() {
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-extrabold text-lg tracking-tight text-slate-900 font-sans">MudFlow</span>
-                <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-mono border border-blue-100 font-bold uppercase tracking-wider">Early Access</span>
+                <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-mono border border-blue-100 font-bold uppercase tracking-wider">v1.4.10</span>
               </div>
               <p className="text-[10px] text-slate-400 tracking-wide font-mono uppercase font-semibold">Drilling Fluid Dynamics</p>
             </div>
@@ -153,7 +153,7 @@ export default function App() {
 
           <div className="flex items-center gap-3">
             <a 
-              href="https://play.google.com/store/apps/dev?id=6045162902091511183" 
+              href="https://play.google.com/store/apps/details?id=com.aistudio.mudflow.rkvyxs" 
               target="_blank" 
               rel="noopener noreferrer"
               className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs px-4 py-2 rounded-xl font-bold transition-all flex items-center gap-1.5 shadow-sm"
@@ -190,7 +190,7 @@ export default function App() {
               </h1>
 
               <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-sans font-light">
-                Perform professional hydrostatic, volumetric, and hydraulic calculations with precision. Designed by <b>Mes3oud</b> for petroleum engineers, mud loggers, and rig crews operating worldwide.
+                Perform professional hydrostatic, volumetric, and hydraulic calculations with precision. Designed by <b>Madanyes</b> for petroleum engineers, mud loggers, and rig crews operating worldwide.
               </p>
 
               {/* Icon Showcase Card */}
@@ -205,13 +205,13 @@ export default function App() {
               {/* Call to Actions */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
                 <a 
-                  href="https://play.google.com/store/apps/dev?id=6045162902091511183"
+                  href="https://play.google.com/store/apps/details?id=com.aistudio.mudflow.rkvyxs"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl px-8 py-4 text-sm transition-all shadow-md shadow-blue-600/10 flex items-center justify-center gap-2.5 cursor-pointer hover:scale-[1.02]"
                 >
                   <Download className="w-4.5 h-4.5" />
-                  <span>Get Early Access on Play Store</span>
+                  <span>Get it on Google Play</span>
                 </a>
                 
                 <a 
@@ -235,7 +235,7 @@ export default function App() {
                 </div>
                 <div>
                   <div className="text-xl font-bold font-mono text-blue-600">No Ads</div>
-                  <div className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Early Access Integrity</div>
+                  <div className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Production Integrity</div>
                 </div>
               </div>
             </div>
@@ -640,12 +640,12 @@ export default function App() {
 
               <div className="pt-4">
                 <a 
-                  href="https://play.google.com/store/apps/dev?id=6045162902091511183"
+                  href="https://play.google.com/store/apps/details?id=com.aistudio.mudflow.rkvyxs"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors"
                 >
-                  <span>Learn more on Mes3oud's Developer Page</span>
+                  <span>Learn more on Madanyes's Developer Page</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
@@ -670,10 +670,10 @@ export default function App() {
               Rig Feedback Queue
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Early Access Feedback Console
+              Developer Feedback Console
             </h2>
             <p className="text-sm text-slate-500 font-medium">
-              Since MudFlow is in Early Access, we want real rig engineers and mud loggers to share opinions. Submit a mock ticket below, and watch it route directly into Mes3oud's developer inbox!
+              We want real rig engineers and mud loggers to share opinions. Submit a mock ticket below, and watch it route directly into Madanyes's developer inbox!
             </p>
           </div>
 
@@ -723,15 +723,15 @@ export default function App() {
             <User className="w-8 h-8" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-slate-900">About the Developer — Mes3oud</h3>
-            <p className="text-xs text-blue-600 font-mono font-bold">Messaoud Amroune</p>
+            <h3 className="text-lg font-bold text-slate-900">About the Developer — Madanyes</h3>
+            <p className="text-xs text-blue-600 font-mono font-bold">Madanyes</p>
           </div>
           <p className="text-xs text-slate-600 max-w-xl mx-auto leading-relaxed">
-            Messaoud is an engineering utility developer focused on high-accuracy fluid dynamics, wellbore geometry diagnostics, and mobile utilities for rig-floor applications. MudFlow was developed using Google AI Studio to streamline mathematical workflows and raise rig floor productivity.
+            Madanyes is an engineering utility developer focused on high-accuracy fluid dynamics, wellbore geometry diagnostics, and mobile utilities for rig-floor applications. MudFlow was developed using Google AI Studio to streamline mathematical workflows and raise rig floor productivity.
           </p>
           <div className="flex justify-center gap-4 text-xs font-semibold">
             <a 
-              href="https://play.google.com/store/apps/dev?id=6045162902091511183" 
+              href="https://play.google.com/store/apps/details?id=com.aistudio.mudflow.rkvyxs" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-blue-600 hover:text-blue-700 flex items-center gap-1 cursor-pointer"
@@ -741,11 +741,11 @@ export default function App() {
             </a>
             <span className="text-slate-200">|</span>
             <a 
-              href="mailto:mes3oud@gmail.com" 
+              href="mailto:madanyes@mudflowapp.online" 
               className="text-blue-600 hover:text-blue-700 flex items-center gap-1 cursor-pointer"
             >
               <Mail className="w-3.5 h-3.5" />
-              <span>mes3oud@gmail.com</span>
+              <span>madanyes@mudflowapp.online</span>
             </a>
           </div>
         </div>
@@ -765,7 +765,7 @@ export default function App() {
           </div>
 
           <p className="text-[10px] text-slate-400 font-mono text-center md:text-right">
-            © 2026 Mes3oud (Messaoud Amroune). All rights reserved. Oilfield safety calculations are for educational and advisory reference only.
+            © 2026 Madanyes. All rights reserved. Oilfield safety calculations are for educational and advisory reference only.
           </p>
         </div>
       </footer>

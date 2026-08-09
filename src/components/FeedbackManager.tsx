@@ -78,7 +78,7 @@ export default function FeedbackManager() {
     setRating(5);
     setMessageText("");
 
-    setNotification("Your review has been successfully piped to Mes3oud's developer dashboard!");
+    setNotification("Your review has been successfully piped to Madanyes's developer dashboard!");
     setTimeout(() => setNotification(null), 5000);
   };
 
@@ -100,7 +100,7 @@ export default function FeedbackManager() {
           </div>
           <div>
             <h3 className="text-lg font-bold text-slate-800 tracking-tight">Submit Feedback</h3>
-            <p className="text-xs text-slate-500">Help Mes3oud optimize the early access build</p>
+            <p className="text-xs text-slate-500">Help Madanyes optimize the production build</p>
           </div>
         </div>
 
@@ -203,7 +203,7 @@ export default function FeedbackManager() {
             <span className="w-3 h-3 rounded-full bg-rose-500"></span>
             <span className="w-3 h-3 rounded-full bg-amber-500"></span>
             <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
-            <span className="text-xs font-mono text-slate-400 ml-2">mes3oud@console:~/feedback</span>
+            <span className="text-xs font-mono text-slate-400 ml-2">madanyes@console:~/feedback</span>
           </div>
           <span className="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">
             {messages.length} pending logs
