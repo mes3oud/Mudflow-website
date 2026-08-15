@@ -80,12 +80,22 @@ export default function App() {
 
   const handleMDChange = (val: number) => {
     const imperialMD = isMetric ? val / FT_TO_M : val;
-    setInputs(prev => ({ ...prev, measuredDepth: Math.round(imperialMD) }));
+    const md = Math.round(imperialMD);
+    // TVD can never exceed measured depth.
+    setInputs(prev => ({
+      ...prev,
+      measuredDepth: md,
+      trueVerticalDepth: Math.min(prev.trueVerticalDepth, md),
+    }));
   };
 
   const handleTVDChange = (val: number) => {
     const imperialTVD = isMetric ? val / FT_TO_M : val;
-    setInputs(prev => ({ ...prev, trueVerticalDepth: Math.round(imperialTVD) }));
+    // TVD can never exceed measured depth.
+    setInputs(prev => ({
+      ...prev,
+      trueVerticalDepth: Math.min(Math.round(imperialTVD), prev.measuredDepth),
+    }));
   };
 
   const handleCasingIDChange = (val: number) => {

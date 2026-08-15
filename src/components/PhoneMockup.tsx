@@ -75,6 +75,21 @@ export default function PhoneMockup() {
   const [mixingInitialMW, setMixingInitialMW] = useState(1.55); // in current mudWeightUnit
   const [mixingTargetMW, setMixingTargetMW] = useState(1.65); // in current mudWeightUnit
 
+  // The barite formula is defined in ppg and bbl. Convert whatever units are
+  // currently selected before applying it, otherwise SG values get fed into
+  // ppg constants and the result is off by more than an order of magnitude.
+  const mwToPpg = (v: number) =>
+    mudWeightUnit === "SG" ? v * 8.33 : mudWeightUnit === "PCF" ? v / 7.48 : v;
+  const volToBbl = (v: number) =>
+    volumeUnit === "m³" ? v / 0.15898 : volumeUnit === "gal" ? v / 42 : v;
+  const bblToVolUnit = (v: number) =>
+    volumeUnit === "m³" ? v * 0.15898 : volumeUnit === "gal" ? v * 42 : v;
+  const bariteSacks = Math.max(
+    0,
+    (14.7 * volToBbl(mixingVolume) * (mwToPpg(mixingTargetMW) - mwToPpg(mixingInitialMW))) /
+      Math.max(0.01, 35 - mwToPpg(mixingTargetMW))
+  );
+
   // Balanced Plug Inputs (Screenshot 6)
   const [plugBottomDepth, setPlugBottomDepth] = useState(9200);
   const [plugDesiredHeight, setPlugDesiredHeight] = useState(500);
@@ -672,11 +687,11 @@ export default function PhoneMockup() {
                           <div className="flex items-center justify-between mt-1">
                             <span className="text-slate-600 font-medium">Sacks of Barite (100 lb):</span>
                             <span className="font-mono font-black text-amber-700 text-sm">
-                              {Math.max(0, Math.round((1470 * (mixingTargetMW - mixingInitialMW) * mixingVolume) / (100 * (35 - mixingTargetMW))))} sks
+                              {Math.round(bariteSacks)} sks
                             </span>
                           </div>
                           <div className="text-[9px] text-slate-500 mt-1">
-                            Approx. Volume Increase: <span className="font-bold text-slate-700 font-mono">+{Math.max(0, parseFloat((((1470 * (mixingTargetMW - mixingInitialMW) * mixingVolume) / (100 * (35 - mixingTargetMW))) * 0.068).toFixed(1)))} {volumeUnit}</span>
+                            Approx. Volume Increase: <span className="font-bold text-slate-700 font-mono">+{parseFloat(bblToVolUnit(bariteSacks / 14.7).toFixed(1))} {volumeUnit}</span>
                           </div>
                         </div>
                       </div>
