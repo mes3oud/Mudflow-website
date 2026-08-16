@@ -1335,15 +1335,27 @@ export default function PhoneMockup() {
                       </div>
 
                       <div className="grid grid-cols-2 gap-2 pt-1 font-mono">
+                        <div className="col-span-2 grid grid-cols-2 gap-2 pb-1 mb-1 border-b border-slate-700/50">
+                          <div className="relative">
+                            <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wide">Initial MAASP</span>
+                            <div className="font-extrabold text-xs block text-orange-400 mt-1">{convertPressure(2818)}</div>
+                            <span className="absolute right-0 bottom-1 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">{pressureUnit}</span>
+                          </div>
+                          <div className="relative">
+                            <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wide">Max Allowable MW</span>
+                            <div className="font-extrabold text-xs block text-orange-400 mt-1">{convertMudWeight(2.35)}</div>
+                            <span className="absolute right-0 bottom-1 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">{mudWeightUnit}</span>
+                          </div>
+                        </div>
                         <div className="relative">
                           <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wide">Leak-Off Pressure (A)</span>
-                          <div className="font-extrabold text-xs block text-slate-200 mt-1">{leakOffPressure}</div>
+                          <div className="font-extrabold text-xs block text-slate-200 mt-1">{convertPressure(leakOffPressure)}</div>
                           <span className="absolute right-0 bottom-1 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">{pressureUnit}</span>
                         </div>
                         <div className="relative">
                           <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wide">Mud Weight at Test (B)</span>
-                          <div className="font-extrabold text-xs block text-slate-200 mt-1">{mudWeightAtTest.toFixed(2)}</div>
-                          <span className="absolute right-0 bottom-1 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase font-bold">SG</span>
+                          <div className="font-extrabold text-xs block text-slate-200 mt-1">{convertMudWeight(mudWeightAtTest)}</div>
+                          <span className="absolute right-0 bottom-1 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase font-bold">{mudWeightUnit}</span>
                         </div>
                       </div>
                     </div>
@@ -1353,7 +1365,7 @@ export default function PhoneMockup() {
                 {/* Sub-tab view: Circulating plan schedule draw downs */}
                 {killSheetTab === "plan" && (
                   <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3.5 space-y-2 animate-fadeIn">
-                    <span className="font-bold text-slate-400 uppercase block text-[8px] tracking-wider">Dynamic Pump Drawdown Plan</span>
+                    <span className="font-bold text-slate-400 uppercase block text-[8px] tracking-wider">Pressure Step-Down Schedule (W&W)</span>
                     <table className="w-full text-left font-mono text-[8px] leading-tight">
                       <thead>
                         <tr className="border-b border-slate-700/50 text-slate-400 text-[7px] uppercase tracking-wider font-sans">
