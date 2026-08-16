@@ -399,7 +399,7 @@ export default function PhoneMockup() {
                   <>
                     <div className="flex items-center justify-between">
                       <h3 className="text-sm font-extrabold text-white uppercase tracking-tight">Engineering Calculations</h3>
-                      <span className="text-[10px] font-bold text-slate-400 tracking-wider">8 Modules</span>
+                      <span className="text-[10px] font-bold text-slate-400 tracking-wider">9 Modules</span>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2.5">
