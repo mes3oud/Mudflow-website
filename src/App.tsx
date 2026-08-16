@@ -398,7 +398,7 @@ export default function App() {
                       <input
                         type="range"
                         min={isMetric ? "300" : "1000"}
-                        max={isMetric ? "6000" : "20000"}
+                        max={isMetric ? "6100" : "20000"}
                         step="50"
                         value={uiMD}
                         onChange={(e) => handleMDChange(parseInt(e.target.value))}
@@ -419,7 +419,7 @@ export default function App() {
                       <input
                         type="range"
                         min={isMetric ? "300" : "1000"}
-                        max={isMetric ? "6000" : "20000"}
+                        max={isMetric ? "6100" : "20000"}
                         step="50"
                         value={uiTVD}
                         onChange={(e) => handleTVDChange(parseInt(e.target.value))}
@@ -447,7 +447,7 @@ export default function App() {
                             ? String(Math.ceil((inputs.drillPipeOD + 0.5) * IN_TO_MM))
                             : (inputs.drillPipeOD + 0.5).toFixed(1)
                         }
-                        max={isMetric ? "400" : "15.0"}
+                        max={isMetric ? "381" : "15.0"}
                         step={isMetric ? "1" : "0.1"}
                         value={uiCasingID}
                         onChange={(e) => handleCasingIDChange(parseFloat(e.target.value))}
@@ -540,8 +540,8 @@ export default function App() {
                     </div>
                     <input
                       type="range"
-                      min={isMetric ? "500" : "100"}
-                      max={isMetric ? "3000" : "8000"}
+                      min={isMetric ? "400" : "100"}
+                      max={isMetric ? "4500" : "1200"}
                       step="50"
                       value={uiFlowRate}
                       onChange={(e) => handleFlowRateChange(parseInt(e.target.value))}
