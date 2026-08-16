@@ -50,7 +50,7 @@ export default function PhoneMockup() {
 
   // Sub-tabs
   const [wellCapacityTab, setWellCapacityTab] = useState<"geometry" | "cycle" | "tubulars">("geometry");
-  const [advancedTab, setAdvancedTab] = useState<"grid" | "plug" | "slug" | "lab">("grid");
+  const [advancedTab, setAdvancedTab] = useState<"plug" | "slug" | "lab">("plug");
   const [killSheetTab, setKillSheetTab] = useState<"kick" | "plan">("kick");
   const [tripSheetTab, setTripSheetTab] = useState<"setup" | "table">("setup");
   const [killMethod, setKillMethod] = useState<"Wait & Weight" | "Driller's Method">("Wait & Weight");
@@ -1049,10 +1049,9 @@ export default function PhoneMockup() {
                 {/* Tabs */}
                 <div className="flex border-b border-slate-700/50 mb-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
                   {[
-                    { id: "grid", label: "Tools" },
                     { id: "plug", label: "Balanced Plug" },
                     { id: "slug", label: "Heavy Pill / Slug" },
-                    { id: "lab", label: "Specialized Lab" }
+                    { id: "lab", label: "Specialized Lab Tests" }
                   ].map((subTab) => (
                     <button
                       key={subTab.id}
@@ -1068,108 +1067,6 @@ export default function PhoneMockup() {
                   ))}
                 </div>
 
-                {advancedTab === "grid" && (
-                  <div className="space-y-3 animate-fadeIn">
-                    <h4 className="font-extrabold text-[12px] text-slate-200 tracking-tight">Advanced Engineering Tools</h4>
-                    
-                    <div className="grid grid-cols-2 gap-2.5">
-                      {/* Cementing */}
-                      <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left hover:border-slate-500 shadow-sm transition-all flex flex-col justify-between min-h-[110px]">
-                        <div className="w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 text-sky-400 flex items-center justify-center mb-2">
-                          <Layers className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="font-extrabold text-[11px] leading-tight text-white">Cementing<br/>Calculations</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Slurry yield, sacks, displacement volume, TOC &amp; pressures</p>
-                        </div>
-                        <div className="h-0.5 w-full bg-blue-500 mt-2 rounded-full"></div>
-                      </div>
-
-                      {/* Torque & Drag */}
-                      <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left hover:border-slate-500 shadow-sm transition-all flex flex-col justify-between min-h-[110px]">
-                        <div className="w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 text-orange-400 flex items-center justify-center mb-2">
-                          <Activity className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="font-extrabold text-[11px] leading-tight text-white">Torque & Drag</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Mechanical friction, tension &amp; hookload pulling/running</p>
-                        </div>
-                        <div className="h-0.5 w-full bg-orange-500 mt-2 rounded-full"></div>
-                      </div>
-
-                      {/* Surge & Swab */}
-                      <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left hover:border-slate-500 shadow-sm transition-all flex flex-col justify-between min-h-[110px]">
-                        <div className="w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 text-indigo-400 flex items-center justify-center mb-2">
-                          <ArrowUpDown className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="font-extrabold text-[11px] leading-tight text-white">Surge & Swab</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Tripping pressure, dynamic ESD &amp; frac/kick risk while running</p>
-                        </div>
-                        <div className="h-0.5 w-full bg-indigo-500 mt-2 rounded-full"></div>
-                      </div>
-                      
-                      {/* Spacer & Displ */}
-                      <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left hover:border-slate-500 shadow-sm transition-all flex flex-col justify-between min-h-[110px]">
-                        <div className="w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 text-emerald-400 flex items-center justify-center mb-2">
-                          <RefreshCw className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="font-extrabold text-[11px] leading-tight text-white">Spacer & Displ.</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Displacement volume, pump strokes &amp; spacer contact time</p>
-                        </div>
-                        <div className="h-0.5 w-full bg-emerald-500 mt-2 rounded-full"></div>
-                      </div>
-                      
-                      {/* Mud Templates */}
-                      <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left hover:border-slate-500 shadow-sm transition-all flex flex-col justify-between min-h-[110px]">
-                        <div className="w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 text-teal-400 flex items-center justify-center mb-2">
-                          <FileSpreadsheet className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="font-extrabold text-[11px] leading-tight text-white">Mud Templates</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Create, store and apply custom chemical formulations</p>
-                        </div>
-                        <div className="h-0.5 w-full bg-teal-500 mt-2 rounded-full"></div>
-                      </div>
-                      
-                      {/* Operational Reports */}
-                      <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left hover:border-slate-500 shadow-sm transition-all flex flex-col justify-between min-h-[110px]">
-                        <div className="w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 text-orange-400 flex items-center justify-center mb-2">
-                          <ClipboardList className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="font-extrabold text-[11px] leading-tight text-white">Operational Reports</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Mixing, tank cleaning & shaker change logs with branded PDF export</p>
-                        </div>
-                        <div className="h-0.5 w-full bg-orange-500 mt-2 rounded-full"></div>
-                      </div>
-                      
-                      {/* Specialized Lab */}
-                      <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left hover:border-slate-500 shadow-sm transition-all flex flex-col justify-between min-h-[110px] col-span-1">
-                        <div className="w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 text-teal-500 flex items-center justify-center mb-2">
-                          <Info className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="font-extrabold text-[11px] leading-tight text-white">Specialized Lab Tests</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Bilingual procedures, equipment & canvas illustrations</p>
-                        </div>
-                      </div>
-
-                      {/* Shale Shaker Screens */}
-                      <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left hover:border-slate-500 shadow-sm transition-all flex flex-col justify-between min-h-[110px] col-span-1">
-                        <div className="w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 text-orange-400 flex items-center justify-center mb-2">
-                          <Filter className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <div className="font-extrabold text-[11px] leading-tight text-white">Shale Shaker Screens</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">API cut points, G-Force & Screen selection advisor</p>
-                        </div>
-                        <div className="h-0.5 w-full bg-orange-500 mt-2 rounded-full"></div>
-                      </div>
-                    </div>
-                  </div>
-                )}
 
                 {/* Sub-tab: Balanced Plug (Screenshot 6) */}
                 {advancedTab === "plug" && (
@@ -1288,6 +1185,35 @@ export default function PhoneMockup() {
                       <b className="text-sky-400 block font-bold">Resolved Drill Pipe (Profile) :</b>
                       <span>Drill Pipe ID: 4.276 inch</span>
                     </div>
+                  </div>
+                )}
+
+                {/* Sub-tab: Specialized Lab Tests */}
+                {advancedTab === "lab" && (
+                  <div className="space-y-2 animate-fadeIn">
+                    <h4 className="font-extrabold text-[12px] text-slate-200 tracking-tight">Specialized Lab Tests</h4>
+                    <p className="text-[9px] text-slate-400 leading-snug -mt-1">Bilingual procedures, required equipment and step-by-step method for eight advanced mud-lab tests.</p>
+
+                    {[
+                      { name: "HPHT Viscometry", purpose: "Rheology at simulated downhole pressure and temperature." },
+                      { name: "Particle Plugging Test (PPT)", purpose: "Ability to seal formation pore throats and control losses." },
+                      { name: "Dynamic Fluid-Loss Analysis", purpose: "Filtration under simulated wellbore shear and flow." },
+                      { name: "Lubricity & Differential Sticking", purpose: "Friction reduction and pipe-sticking risk against filter cake." },
+                      { name: "Shale-Fluid Interaction Analysis", purpose: "Compatibility with reactive shale; wellbore instability risk." },
+                      { name: "Return Permeability", purpose: "Formation damage caused by filtrate invasion." },
+                      { name: "Garrett Gas Train", purpose: "Dissolved sulfides (H₂S) and carbonates (CO₂) in filtrate." },
+                      { name: "Hot Rolling & Static Aging", purpose: "Downhole temperature exposure and mud stability over time." }
+                    ].map((test) => (
+                      <div key={test.name} className="bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 flex items-center gap-2.5 shadow-sm">
+                        <div className="w-9 h-9 shrink-0 rounded-lg bg-slate-700/50 border border-slate-600/50 text-teal-400 flex items-center justify-center">
+                          <Info className="w-4 h-4" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="font-extrabold text-[10.5px] leading-tight text-white truncate">{test.name}</div>
+                          <p className="text-[8.5px] text-slate-400 mt-0.5 leading-snug">{test.purpose}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
