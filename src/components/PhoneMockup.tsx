@@ -413,7 +413,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Rheology Lab</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">PV, YP, gel strength, Power Law index</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">PV, YP, gel strength, Power Law index & Consistency</p>
                         </div>
                         <div className="h-0.5 w-full bg-sky-500 mt-2 rounded-full"></div>
                       </button>
@@ -428,7 +428,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Hydraulics & ECD</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Annular velocity, Hydrostatic pressure,</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Annular velocity, Hydrostatic pressure, dynamic ECD</p>
                         </div>
                         <div className="h-0.5 w-full bg-emerald-500 mt-2 rounded-full"></div>
                       </button>
@@ -443,7 +443,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Mixing & Weight</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Fluid mixture formulas, Barite loading & mud</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Fluid mixture formulas, Barite loading & mud dilution</p>
                         </div>
                         <div className="h-0.5 w-full bg-amber-500 mt-2 rounded-full"></div>
                       </button>
@@ -458,7 +458,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Pit Volumetrics</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Volume tracking for rectangular pits &</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Volume tracking for rectangular pits & cylindrical silos</p>
                         </div>
                         <div className="h-0.5 w-full bg-indigo-500 mt-2 rounded-full"></div>
                       </button>
@@ -503,7 +503,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Contamination WBM/OBM</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Mud contamination diagnostics and exact</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Mud contamination diagnostics and exact treatment calculations</p>
                         </div>
                         <div className="h-0.5 w-full bg-red-500 mt-2 rounded-full"></div>
                       </button>
@@ -518,10 +518,22 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Solids Analysis</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Calculate LGS, LGS (CaCO3), HGS, ASGS &</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Calculate LGS, LGS (CaCO3), HGS, ASGS & salt-corrected solids</p>
                         </div>
                         <div className="h-0.5 w-full bg-indigo-500 mt-2 rounded-full"></div>
                       </button>
+
+                      {/* KCl Concentration */}
+                      <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left shadow-sm flex flex-col justify-between min-h-[110px]">
+                        <div className="w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 text-teal-400 flex items-center justify-center mb-2">
+                          <Droplets className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-extrabold text-[11px] leading-tight text-white">KCl Concentration</div>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Sodium perchlorate test: precipitate volume to %KCl via calibration curve</p>
+                        </div>
+                        <div className="h-0.5 w-full bg-teal-500 mt-2 rounded-full"></div>
+                      </div>
                     </div>
                   </>
                 ) : (
