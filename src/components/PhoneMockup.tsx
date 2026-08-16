@@ -24,7 +24,8 @@ import {
   ArrowUpDown,
   ClipboardList,
   Search,
-  MoreVertical
+  MoreVertical,
+  Filter
 } from "lucide-react";
 import AppIcon from "./AppIcon";
 import { APP_VERSION } from "../config";
@@ -1041,7 +1042,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Cementing<br/>Calculations</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Slurry yield, sacks, displacement volume,</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Slurry yield, sacks, displacement volume, TOC &amp; pressures</p>
                         </div>
                         <div className="h-0.5 w-full bg-blue-500 mt-2 rounded-full"></div>
                       </div>
@@ -1053,7 +1054,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Torque & Drag</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Estimate mechanical friction, tension,</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Mechanical friction, tension &amp; hookload pulling/running</p>
                         </div>
                         <div className="h-0.5 w-full bg-orange-500 mt-2 rounded-full"></div>
                       </div>
@@ -1065,7 +1066,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Surge & Swab</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Tripping pressure, dynamic ESD, frac or</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Tripping pressure, dynamic ESD &amp; frac/kick risk while running</p>
                         </div>
                         <div className="h-0.5 w-full bg-indigo-500 mt-2 rounded-full"></div>
                       </div>
@@ -1077,7 +1078,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Spacer & Displ.</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Displacement volume, pump strokes, spacer</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Displacement volume, pump strokes &amp; spacer contact time</p>
                         </div>
                         <div className="h-0.5 w-full bg-emerald-500 mt-2 rounded-full"></div>
                       </div>
@@ -1089,7 +1090,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Mud Templates</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Create, store and apply custom chemical</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Create, store and apply custom chemical formulations</p>
                         </div>
                         <div className="h-0.5 w-full bg-teal-500 mt-2 rounded-full"></div>
                       </div>
@@ -1101,7 +1102,7 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Operational Reports</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Mixing, tank cleaning & shaker change logs with</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Mixing, tank cleaning & shaker change logs with branded PDF export</p>
                         </div>
                         <div className="h-0.5 w-full bg-orange-500 mt-2 rounded-full"></div>
                       </div>
@@ -1113,8 +1114,20 @@ export default function PhoneMockup() {
                         </div>
                         <div>
                           <div className="font-extrabold text-[11px] leading-tight text-white">Specialized Lab Tests</div>
-                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Bilingual procedures, required equipment &</p>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">Bilingual procedures, equipment & canvas illustrations</p>
                         </div>
+                      </div>
+
+                      {/* Shale Shaker Screens */}
+                      <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left hover:border-slate-500 shadow-sm transition-all flex flex-col justify-between min-h-[110px] col-span-1">
+                        <div className="w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 text-orange-400 flex items-center justify-center mb-2">
+                          <Filter className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-extrabold text-[11px] leading-tight text-white">Shale Shaker Screens</div>
+                          <p className="text-[9px] text-slate-400 mt-1 leading-snug">API cut points, G-Force & Screen selection advisor</p>
+                        </div>
+                        <div className="h-0.5 w-full bg-orange-500 mt-2 rounded-full"></div>
                       </div>
                     </div>
                   </div>
