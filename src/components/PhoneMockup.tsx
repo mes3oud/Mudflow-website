@@ -78,6 +78,14 @@ export default function PhoneMockup() {
   // The barite formula is defined in ppg and bbl. Convert whatever units are
   // currently selected before applying it, otherwise SG values get fed into
   // ppg constants and the result is off by more than an order of magnitude.
+  // Kill-sheet mud weights are stored in SG; convert to the selected display unit.
+  const convertMudWeight = (valInSg: number) =>
+    mudWeightUnit === "SG"
+      ? parseFloat(valInSg.toFixed(2))
+      : mudWeightUnit === "PPG"
+        ? parseFloat((valInSg * 8.33).toFixed(2))
+        : parseFloat((valInSg * 62.43).toFixed(1));
+
   const mwToPpg = (v: number) =>
     mudWeightUnit === "SG" ? v * 8.33 : mudWeightUnit === "PCF" ? v / 7.48 : v;
   const volToBbl = (v: number) =>
@@ -1302,10 +1310,10 @@ export default function PhoneMockup() {
                     <div>
                       <span className="text-[8px] text-slate-400 font-bold block uppercase tracking-wide">Kill Mud Weight (KMW)</span>
                       <div className="font-mono font-black text-slate-200 text-lg mt-0.5">
-                        {kmwDisplay} <span className="text-[10px] text-slate-500 font-bold uppercase">{mudWeightUnit}</span>
+                        {convertMudWeight(kmwDisplay)} <span className="text-[10px] text-slate-500 font-bold uppercase">{mudWeightUnit}</span>
                       </div>
                     </div>
-                    <span className="bg-orange-900/40 border border-orange-800/50 text-orange-400 text-[9px] font-black font-mono px-1.5 py-0.5 rounded">+0.10 SG</span>
+                    <span className="bg-orange-900/40 border border-orange-800/50 text-orange-400 text-[9px] font-black font-mono px-1.5 py-0.5 rounded">+{convertMudWeight(0.10)} {mudWeightUnit}</span>
                   </div>
 
                   {/* ICP & FCP row */}
@@ -1330,14 +1338,14 @@ export default function PhoneMockup() {
                     <div className="grid grid-cols-2 gap-2 font-mono">
                       <div className="bg-slate-800 border border-slate-700/60 p-2.5 rounded-xl shadow-sm relative">
                         <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wider">Original Mud Weight</span>
-                        <div className="font-extrabold text-xs block text-slate-200 mt-1">{originalMudWeight.toFixed(2)}</div>
-                        <span className="absolute right-2 bottom-2 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">SG</span>
+                        <div className="font-extrabold text-xs block text-slate-200 mt-1">{convertMudWeight(originalMudWeight)}</div>
+                        <span className="absolute right-2 bottom-2 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">{mudWeightUnit}</span>
                       </div>
 
                       <div className="bg-slate-800 border border-slate-700/60 p-2.5 rounded-xl shadow-sm relative">
                         <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wider">True Vertical Depth (TVD)</span>
-                        <div className="font-extrabold text-xs block text-slate-200 mt-1">{tvd}</div>
-                        <span className="absolute right-2 bottom-2 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">m</span>
+                        <div className="font-extrabold text-xs block text-slate-200 mt-1">{convertDepth(tvd).toLocaleString()}</div>
+                        <span className="absolute right-2 bottom-2 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">{depthUnit === "meters (m)" ? "m" : "ft"}</span>
                       </div>
                     </div>
 
@@ -1345,8 +1353,8 @@ export default function PhoneMockup() {
                     <div className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 space-y-3">
                       <div className="relative font-mono">
                         <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wider">Casing Shoe TVD</span>
-                        <div className="font-extrabold text-xs block text-slate-200 mt-1">{casingShoeTvd}</div>
-                        <span className="absolute right-0 bottom-1 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">m</span>
+                        <div className="font-extrabold text-xs block text-slate-200 mt-1">{convertDepth(casingShoeTvd).toLocaleString()}</div>
+                        <span className="absolute right-0 bottom-1 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">{depthUnit === "meters (m)" ? "m" : "ft"}</span>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2 pt-1 font-mono">
@@ -1378,12 +1386,12 @@ export default function PhoneMockup() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-700/50 text-slate-300">
-                        <tr><td className="py-1 font-bold text-slate-200">0 (Initial)</td><td className="py-1 text-red-400 font-bold">{convertPressure(900)} {pressureUnit}</td><td className="py-1 text-right">1.55 SG</td></tr>
-                        <tr><td className="py-1">200</td><td className="py-1">{convertPressure(810)} {pressureUnit}</td><td className="py-1 text-right">1.57 SG</td></tr>
-                        <tr><td className="py-1">400</td><td className="py-1">{convertPressure(720)} {pressureUnit}</td><td className="py-1 text-right">1.59 SG</td></tr>
-                        <tr><td className="py-1">600</td><td className="py-1">{convertPressure(630)} {pressureUnit}</td><td className="py-1 text-right">1.61 SG</td></tr>
-                        <tr><td className="py-1">800</td><td className="py-1">{convertPressure(540)} {pressureUnit}</td><td className="py-1 text-right">1.63 SG</td></tr>
-                        <tr><td className="py-1 font-bold text-slate-200">1,000 (Final)</td><td className="py-1 text-emerald-400 font-bold">{convertPressure(425)} {pressureUnit}</td><td className="py-1 text-right font-bold text-sky-400">1.65 SG</td></tr>
+                        <tr><td className="py-1 font-bold text-slate-200">0 (Initial)</td><td className="py-1 text-red-400 font-bold">{convertPressure(900)} {pressureUnit}</td><td className="py-1 text-right">{convertMudWeight(1.55)} {mudWeightUnit}</td></tr>
+                        <tr><td className="py-1">200</td><td className="py-1">{convertPressure(810)} {pressureUnit}</td><td className="py-1 text-right">{convertMudWeight(1.57)} {mudWeightUnit}</td></tr>
+                        <tr><td className="py-1">400</td><td className="py-1">{convertPressure(720)} {pressureUnit}</td><td className="py-1 text-right">{convertMudWeight(1.59)} {mudWeightUnit}</td></tr>
+                        <tr><td className="py-1">600</td><td className="py-1">{convertPressure(630)} {pressureUnit}</td><td className="py-1 text-right">{convertMudWeight(1.61)} {mudWeightUnit}</td></tr>
+                        <tr><td className="py-1">800</td><td className="py-1">{convertPressure(540)} {pressureUnit}</td><td className="py-1 text-right">{convertMudWeight(1.63)} {mudWeightUnit}</td></tr>
+                        <tr><td className="py-1 font-bold text-slate-200">1,000 (Final)</td><td className="py-1 text-emerald-400 font-bold">{convertPressure(425)} {pressureUnit}</td><td className="py-1 text-right font-bold text-sky-400">{convertMudWeight(1.65)} {mudWeightUnit}</td></tr>
                       </tbody>
                     </table>
                   </div>
