@@ -808,11 +808,11 @@ export default function PhoneMockup() {
                           <b className="text-slate-200 font-bold block mb-0.5">📐 Casing & Hole</b>
                           <div className="flex justify-between">
                             <span>Casing Shoe:</span>
-                            <span className="font-mono font-semibold text-sky-400">3,000 m</span>
+                            <span className="font-mono font-semibold text-sky-400">{convertDepth(3000).toLocaleString()} {depthUnit === "meters (m)" ? "m" : "ft"}</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Total Depth (TD):</span>
-                            <span className="font-mono font-semibold text-sky-400">3,600 m</span>
+                            <span className="font-mono font-semibold text-sky-400">{convertDepth(3600).toLocaleString()} {depthUnit === "meters (m)" ? "m" : "ft"}</span>
                           </div>
                         </div>
 
@@ -850,7 +850,7 @@ export default function PhoneMockup() {
                         </div>
                         <div className="p-2.5 bg-slate-900 border border-slate-700/50 rounded-xl">
                           <span className="text-[7.5px] text-slate-400 block uppercase font-bold tracking-wide">Casing Shoe</span>
-                          <span className="font-mono font-extrabold text-xs block text-slate-200 mt-0.5">3000 m</span>
+                          <span className="font-mono font-extrabold text-xs block text-slate-200 mt-0.5">{convertDepth(3000).toLocaleString()} {depthUnit === "meters (m)" ? "m" : "ft"}</span>
                         </div>
                       </div>
                     </div>
@@ -916,25 +916,25 @@ export default function PhoneMockup() {
                       <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                         <div className="bg-slate-800 border border-slate-700/60 rounded-xl p-3 shadow-sm">
                           <span className="text-[7.5px] text-slate-400 font-sans block uppercase font-bold tracking-wide">String Vol</span>
-                          <span className="font-black text-xs block text-sky-400 mt-1">31.8</span>
+                          <span className="font-black text-xs block text-sky-400 mt-1">{convertVolume(31.8)}</span>
                           <span className="text-[8px] text-slate-400 font-bold">{volumeUnit}</span>
                         </div>
 
                         <div className="bg-slate-800 border border-slate-700/60 rounded-xl p-3 shadow-sm">
                           <span className="text-[7.5px] text-slate-400 font-sans block uppercase font-bold tracking-wide">String Metal Disp</span>
-                          <span className="font-black text-xs block text-slate-200 mt-1">14.6</span>
+                          <span className="font-black text-xs block text-slate-200 mt-1">{convertVolume(14.6)}</span>
                           <span className="text-[8px] text-slate-400 font-bold">{volumeUnit}</span>
                         </div>
 
                         <div className="bg-slate-800 border border-slate-700/60 rounded-xl p-3 shadow-sm">
                           <span className="text-[7.5px] text-slate-400 font-sans block uppercase font-bold tracking-wide">Annular Vol</span>
-                          <span className="font-black text-xs block text-slate-200 mt-1">96.5</span>
+                          <span className="font-black text-xs block text-slate-200 mt-1">{convertVolume(96.5)}</span>
                           <span className="text-[8px] text-slate-400 font-bold">{volumeUnit}</span>
                         </div>
 
                         <div className="bg-slate-800 border border-slate-700/60 rounded-xl p-3 shadow-sm">
                           <span className="text-[7.5px] text-slate-400 font-sans block uppercase font-bold tracking-wide">Total Mud (String In)</span>
-                          <span className="font-black text-xs block text-[#F27A23] mt-1">128.3</span>
+                          <span className="font-black text-xs block text-[#F27A23] mt-1">{convertVolume(128.3)}</span>
                           <span className="text-[8px] text-slate-400 font-bold">{volumeUnit}</span>
                         </div>
                       </div>
@@ -1312,12 +1312,12 @@ export default function PhoneMockup() {
                   <div className="grid grid-cols-2 gap-2 text-center font-mono">
                     <div className="bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 shadow-sm">
                       <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wide">Initial Circulating Pressure</span>
-                      <div className="font-black text-slate-200 mt-1 text-sm">900</div>
+                      <div className="font-black text-slate-200 mt-1 text-sm">{convertPressure(900)}</div>
                       <span className="text-[8px] text-slate-500 font-bold uppercase">{pressureUnit}</span>
                     </div>
                     <div className="bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 shadow-sm">
                       <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wide">Final Circulating Pressure</span>
-                      <div className="font-black text-sky-400 mt-1 text-sm">425</div>
+                      <div className="font-black text-sky-400 mt-1 text-sm">{convertPressure(425)}</div>
                       <span className="text-[8px] text-slate-400 font-bold uppercase">{pressureUnit}</span>
                     </div>
                   </div>
@@ -1353,7 +1353,7 @@ export default function PhoneMockup() {
                         <div className="relative">
                           <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wide">Leak-Off Pressure (A)</span>
                           <div className="font-extrabold text-xs block text-slate-200 mt-1">{leakOffPressure}</div>
-                          <span className="absolute right-0 bottom-1 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">psi</span>
+                          <span className="absolute right-0 bottom-1 bg-slate-900 text-sky-400 text-[7.5px] font-black font-mono px-1 py-0.5 rounded uppercase">{pressureUnit}</span>
                         </div>
                         <div className="relative">
                           <span className="text-[7px] text-slate-400 font-sans block uppercase font-bold tracking-wide">Mud Weight at Test (B)</span>
@@ -1378,12 +1378,12 @@ export default function PhoneMockup() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-700/50 text-slate-300">
-                        <tr><td className="py-1 font-bold text-slate-200">0 (Initial)</td><td className="py-1 text-red-400 font-bold">900 psi</td><td className="py-1 text-right">1.55 SG</td></tr>
-                        <tr><td className="py-1">200</td><td className="py-1">810 psi</td><td className="py-1 text-right">1.57 SG</td></tr>
-                        <tr><td className="py-1">400</td><td className="py-1">720 psi</td><td className="py-1 text-right">1.59 SG</td></tr>
-                        <tr><td className="py-1">600</td><td className="py-1">630 psi</td><td className="py-1 text-right">1.61 SG</td></tr>
-                        <tr><td className="py-1">800</td><td className="py-1">540 psi</td><td className="py-1 text-right">1.63 SG</td></tr>
-                        <tr><td className="py-1 font-bold text-slate-200">1,000 (Final)</td><td className="py-1 text-emerald-400 font-bold">425 psi</td><td className="py-1 text-right font-bold text-sky-400">1.65 SG</td></tr>
+                        <tr><td className="py-1 font-bold text-slate-200">0 (Initial)</td><td className="py-1 text-red-400 font-bold">{convertPressure(900)} {pressureUnit}</td><td className="py-1 text-right">1.55 SG</td></tr>
+                        <tr><td className="py-1">200</td><td className="py-1">{convertPressure(810)} {pressureUnit}</td><td className="py-1 text-right">1.57 SG</td></tr>
+                        <tr><td className="py-1">400</td><td className="py-1">{convertPressure(720)} {pressureUnit}</td><td className="py-1 text-right">1.59 SG</td></tr>
+                        <tr><td className="py-1">600</td><td className="py-1">{convertPressure(630)} {pressureUnit}</td><td className="py-1 text-right">1.61 SG</td></tr>
+                        <tr><td className="py-1">800</td><td className="py-1">{convertPressure(540)} {pressureUnit}</td><td className="py-1 text-right">1.63 SG</td></tr>
+                        <tr><td className="py-1 font-bold text-slate-200">1,000 (Final)</td><td className="py-1 text-emerald-400 font-bold">{convertPressure(425)} {pressureUnit}</td><td className="py-1 text-right font-bold text-sky-400">1.65 SG</td></tr>
                       </tbody>
                     </table>
                   </div>
