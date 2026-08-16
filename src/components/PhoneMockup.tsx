@@ -535,6 +535,32 @@ export default function PhoneMockup() {
                         <div className="h-0.5 w-full bg-teal-500 mt-2 rounded-full"></div>
                       </div>
                     </div>
+
+                    <h3 className="text-sm font-extrabold text-white uppercase tracking-tight mt-5">Advanced Engineering Tools</h3>
+
+                    <div className="grid grid-cols-2 gap-2.5">
+                      {[
+                        { title: "Cementing Calculations", desc: "Slurry yield, sacks, displacement volume, TOC & pressures", Icon: Layers, color: "text-sky-400", bar: "bg-blue-500" },
+                        { title: "Torque & Drag", desc: "Mechanical friction, tension & hookload pulling/running", Icon: Activity, color: "text-orange-400", bar: "bg-orange-500" },
+                        { title: "Surge & Swab", desc: "Tripping pressure, dynamic ESD & frac/kick risk while running", Icon: ArrowUpDown, color: "text-indigo-400", bar: "bg-indigo-500" },
+                        { title: "Spacer & Displ.", desc: "Displacement volume, pump strokes & spacer contact time", Icon: RefreshCw, color: "text-emerald-400", bar: "bg-emerald-500" },
+                        { title: "Mud Templates", desc: "Create, store and apply custom chemical formulations", Icon: FileSpreadsheet, color: "text-teal-400", bar: "bg-teal-500" },
+                        { title: "Operational Reports", desc: "Mixing, tank cleaning & shaker change logs with branded PDF export", Icon: ClipboardList, color: "text-orange-400", bar: "bg-orange-500" },
+                        { title: "Specialized Lab Tests", desc: "Bilingual procedures, equipment & canvas illustrations", Icon: Info, color: "text-teal-400", bar: "bg-teal-500" },
+                        { title: "Shale Shaker Screens", desc: "API cut points, G-Force & Screen selection advisor", Icon: Filter, color: "text-orange-400", bar: "bg-orange-500" }
+                      ].map((tool) => (
+                        <div key={tool.title} className="bg-slate-800 border border-slate-700/60 rounded-2xl p-3 text-left shadow-sm flex flex-col justify-between min-h-[110px]">
+                          <div className={`w-7 h-7 rounded-lg bg-slate-700/50 border border-slate-600/50 ${tool.color} flex items-center justify-center mb-2`}>
+                            <tool.Icon className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <div className="font-extrabold text-[11px] leading-tight text-white">{tool.title}</div>
+                            <p className="text-[9px] text-slate-400 mt-1 leading-snug">{tool.desc}</p>
+                          </div>
+                          <div className={`h-0.5 w-full ${tool.bar} mt-2 rounded-full`}></div>
+                        </div>
+                      ))}
+                    </div>
                   </>
                 ) : (
                   /* INDIVIDUAL INTERACTIVE FLUID MODULE SCREEN (When clicked) */
